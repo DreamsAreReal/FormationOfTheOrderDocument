@@ -21,7 +21,7 @@ namespace FormationOfTheOrderDocument
         {
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string path = openFileDialog.FileName;       
+                string path = openFileDialog.FileName;
             }
         }
 

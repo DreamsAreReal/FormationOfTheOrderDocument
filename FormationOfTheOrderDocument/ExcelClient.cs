@@ -23,10 +23,10 @@ namespace FormationOfTheOrderDocument
             Worksheet mainWorkSheet = excel.Workbooks.Open(_path).Sheets[1];
             Range lastCell = mainWorkSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
             List<Models.Product> products = new List<Models.Product> { };
-            for (int i = 2; i < lastCell.Row; i++)
+            for (int i = 2; i <= lastCell.Row; i++)
             {
-                products.Add(new Models.Product(mainWorkSheet.Cells[i,1].Text, mainWorkSheet.Cells[i, 2].Text,
-                    mainWorkSheet.Cells[i, 3].Text, mainWorkSheet.Cells[i, 4].Text));
+                products.Add(new Models.Product(mainWorkSheet.Cells[i,1].Text.Trim(), mainWorkSheet.Cells[i, 2].Text.Trim(),
+                    mainWorkSheet.Cells[i, 3].Text.Trim(), mainWorkSheet.Cells[i, 4].Text.Trim()));
             }
 
 
