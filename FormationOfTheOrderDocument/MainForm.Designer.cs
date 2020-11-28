@@ -49,7 +49,7 @@ namespace FormationOfTheOrderDocument
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "*.xlsx|*.xls";
+            this.openFileDialog.Filter = "*.xlsx|";
             this.openFileDialog.Title = "Открыть Excel файл";
             // 
             // saveFileDialog
@@ -76,6 +76,7 @@ namespace FormationOfTheOrderDocument
             this.progressBar.Location = new System.Drawing.Point(12, 70);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(325, 23);
+            this.progressBar.Step = 1;
             this.progressBar.TabIndex = 4;
             // 
             // MainForm
