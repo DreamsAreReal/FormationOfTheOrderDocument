@@ -31,7 +31,7 @@ namespace FormationOfTheOrderDocument
                     Task.Run(() =>
                     {
                         ExcelClient excelClient = new ExcelClient(path, OnRead);
-                        SetMaximumSteps(excelClient.Count + 1);
+                        SetMaximumSteps(excelClient.Count);
                         _products = excelClient.GetProducts();
                         excelClient.CloseExcel();
                     });
