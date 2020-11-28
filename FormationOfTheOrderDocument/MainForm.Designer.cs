@@ -49,7 +49,7 @@ namespace FormationOfTheOrderDocument
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "*.xlsx|";
+            this.openFileDialog.Filter = "*.xlsx|*.xls";
             this.openFileDialog.Title = "Открыть Excel файл";
             // 
             // saveFileDialog

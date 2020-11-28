@@ -17,11 +17,19 @@ namespace FormationOfTheOrderDocument
             InitializeComponent();
         }
 
+        Models.Product[] _products;
+
         private void OnOpenExcelButtonClick(object sender, EventArgs e)
         {
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string path = openFileDialog.FileName;
+                string extention = path.Split('.')[1];
+                if(extention== "xls" || extention== "xlsx")
+                {
+                    ExcelClient excelClient = new ExcelClient(path);
+                    _products =  excelClient.GetProducts();
+                }
             }
         }
 
