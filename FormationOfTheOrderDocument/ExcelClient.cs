@@ -16,17 +16,18 @@ namespace FormationOfTheOrderDocument
         {
             _path = path;
             _excel = new Application();
-            _excel.Visible = true;
-            Worksheet mainWorkSheet = _excel.Workbooks.Open(_path).Sheets[1];
-            Range lastCell = mainWorkSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
-            Count = lastCell.Row-1;
+            _read = read;
+            _excel.Visible = false;
+            _mainWorkSheet = _excel.Workbooks.Open(_path).Sheets[1];
+            Range lastCell = _mainWorkSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
+            Count = lastCell.Row-2;
         }
 
         public Models.Product[] GetProducts()
         {
             
             List<Models.Product> products = new List<Models.Product> { };
-            for (int i = 2; i <= Count+1; i++)
+            for (int i = 2; i <= Count+2; i++)
             {
                 products.Add(new Models.Product(_mainWorkSheet.Cells[i,1].Text.Trim(), _mainWorkSheet.Cells[i, 2].Text.Trim(),
                     _mainWorkSheet.Cells[i, 3].Text.Trim(), _mainWorkSheet.Cells[i, 4].Text.Trim()));

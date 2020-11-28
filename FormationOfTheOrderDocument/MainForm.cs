@@ -27,10 +27,31 @@ namespace FormationOfTheOrderDocument
                 string extention = path.Split('.')[1];
                 if(extention== "xls" || extention== "xlsx")
                 {
-                    ExcelClient excelClient = new ExcelClient(path);
-                    _products =  excelClient.GetProducts();
+                    
+                    Task.Run(() =>
+                    {
+                        ExcelClient excelClient = new ExcelClient(path, OnRead);
+                        SetMaximumSteps(excelClient.Count + 1);
+                        _products = excelClient.GetProducts();
+                        excelClient.CloseExcel();
+                    });
                 }
             }
+        }
+
+        private void SetMaximumSteps(int maxstep)
+        {
+            progressBar.Invoke(new Action(() =>
+            {
+                progressBar.Maximum = maxstep;
+            }));
+        }
+
+        private void OnRead()
+        {
+            progressBar.Invoke(new Action(()=> {
+                progressBar.Value++;
+            }));
         }
 
         private void OnSaveXMLButtonClick(object sender, EventArgs e)
