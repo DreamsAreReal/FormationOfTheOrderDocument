@@ -19,12 +19,18 @@ namespace FormationOfTheOrderDocument
 
         private void OnOpenExcelButtonClick(object sender, EventArgs e)
         {
-
+            if(openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = openFileDialog.FileName;       
+            }
         }
 
         private void OnSaveXMLButtonClick(object sender, EventArgs e)
         {
-
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
         }
     }
 }
