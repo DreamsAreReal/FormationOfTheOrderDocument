@@ -12,7 +12,7 @@ namespace FormationOfTheOrderDocument
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main(1)
+        static void Main(1123123)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
