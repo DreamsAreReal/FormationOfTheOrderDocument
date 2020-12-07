@@ -1,14 +1,16 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using System;
+using Microsoft.Office.Interop.Excel;
 using System.Collections.Generic;
 
 namespace FormationOfTheOrderDocument
 {
-    class ExcelClient
+    class ExcelClient : IDisposable
     {
         public int Count { get; private set; }
 
         private string _path = "";
         private Worksheet _mainWorkSheet;
+        private Workbook _mainWorkBook;
         private Application _excel;
         private System.Action _read;
 
@@ -18,7 +20,8 @@ namespace FormationOfTheOrderDocument
             _excel = new Application();
             _read = read;
             _excel.Visible = false;
-            _mainWorkSheet = _excel.Workbooks.Open(_path).Sheets[1];
+            _mainWorkBook = _excel.Workbooks.Open(_path);
+            _mainWorkSheet = _mainWorkBook.Sheets[1];
             Range lastCell = _mainWorkSheet.Cells.SpecialCells(XlCellType.xlCellTypeLastCell);
             Count = lastCell.Row-1;
         }
@@ -36,10 +39,23 @@ namespace FormationOfTheOrderDocument
 
             return products.ToArray();
         }
+        
 
-        public void CloseExcel()
+        private void ReleaseUnmanagedResources()
         {
+            _mainWorkBook.Close();
             _excel.Quit();
+        }
+
+        public void Dispose()
+        {
+            ReleaseUnmanagedResources();
+            GC.SuppressFinalize(this);
+        }
+
+        ~ExcelClient()
+        {
+            ReleaseUnmanagedResources();
         }
     }
 }

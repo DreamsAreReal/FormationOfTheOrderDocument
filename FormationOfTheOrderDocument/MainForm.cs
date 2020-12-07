@@ -34,7 +34,7 @@ namespace FormationOfTheOrderDocument
                         ExcelClient excelClient = new ExcelClient(path, OnRead);
                         SetMaximumSteps(excelClient.Count);
                         Models.Product[] products = excelClient.GetProducts();
-                        excelClient.CloseExcel();
+                        excelClient.Dispose();
                         XMLSerialization serialization = new XMLSerialization();
                         _xml = serialization.GetXML(products, OnGenerateXML);
                     });

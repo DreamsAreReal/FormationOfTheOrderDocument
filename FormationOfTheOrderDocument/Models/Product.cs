@@ -20,7 +20,7 @@ namespace FormationOfTheOrderDocument.Models
         {
             BarCode = barcode;
             Count = count;
-            Price = price;
+            Price = price.Split(',')[0].Replace(" ", string.Empty);
             name = name.Replace("&", "&amp")
                 .Replace("\"", "&quot")
                 .Replace("<", "&lt")
