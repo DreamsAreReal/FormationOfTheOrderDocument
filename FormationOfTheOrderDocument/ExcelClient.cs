@@ -30,7 +30,7 @@ namespace FormationOfTheOrderDocument
             for (int i = 2; i <= Count+1; i++)
             {
                 products.Add(new Models.Product(_mainWorkSheet.Cells[i,1].Text.Trim(), _mainWorkSheet.Cells[i, 2].Text.Trim(),
-                    _mainWorkSheet.Cells[i, 3].Text.Trim(), _mainWorkSheet.Cells[i, 4].Text.Trim()));
+                    _mainWorkSheet.Cells[i, 3].Text.Trim(), _mainWorkSheet.Cells[i, 4].Text.Trim().ToString()));
                 _read?.Invoke();
             }
 

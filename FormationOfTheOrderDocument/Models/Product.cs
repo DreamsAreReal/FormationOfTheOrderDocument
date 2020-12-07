@@ -8,19 +8,23 @@ namespace FormationOfTheOrderDocument.Models
 {
     class Product
     {
-        public string BarCode { get; private set; }
+        public string BarCode { get; }
 
-        public string Count { get; private set; }
+        public string Count { get;}
 
-        public string Price { get; private set; }
+        public string Price { get; }
 
-        public string Name { get; private set; }
+        public string Name { get;}
 
         public Product(string barcode, string count, string price, string name)
         {
             BarCode = barcode;
             Count = count;
             Price = price;
+            name = name.Replace("&", "&amp")
+                .Replace("\"", "&quot")
+                .Replace("<", "&lt")
+                .Replace(">", "&gt");
             Name = name;
         }
     }
