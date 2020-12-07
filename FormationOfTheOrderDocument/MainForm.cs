@@ -17,7 +17,7 @@ namespace FormationOfTheOrderDocument
             InitializeComponent();
         }
 
-        Models.Product[] _products;
+        string _xml = "";
 
         private void OnOpenExcelButtonClick(object sender, EventArgs e)
         {
@@ -27,13 +27,16 @@ namespace FormationOfTheOrderDocument
                 string extention = path.Split('.')[1];
                 if(extention== "xls" || extention== "xlsx")
                 {
-                    
+                    progressBar.Value = 0;
+                    ((Button)sender).Enabled = false;
                     Task.Run(() =>
                     {
                         ExcelClient excelClient = new ExcelClient(path, OnRead);
                         SetMaximumSteps(excelClient.Count);
-                        _products = excelClient.GetProducts();
+                        Models.Product[] products = excelClient.GetProducts();
                         excelClient.CloseExcel();
+                        XMLSerialization serialization = new XMLSerialization();
+                        _xml = serialization.GetXML(products, OnGenerateXML);
                     });
                 }
             }
@@ -54,11 +57,21 @@ namespace FormationOfTheOrderDocument
             }));
         }
 
+        private void OnGenerateXML()
+        {
+            saveXMLButton.Invoke(new Action(() =>
+            {
+                saveXMLButton.Enabled = true;
+            })); 
+        }
+
         private void OnSaveXMLButtonClick(object sender, EventArgs e)
         {
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                
+                System.IO.File.WriteAllText(saveFileDialog.FileName+".xml", _xml, Encoding.GetEncoding(1251));
+                openExcelButton.Enabled = true;
+                saveXMLButton.Enabled = false;
             }
         }
     }
